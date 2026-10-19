@@ -1,0 +1,2 @@
+AddSimpleModel( -1, 5409, -20002, "mosque.dff", "mosque.txd");
+AddCharModel(305, 29999, "army.dff", "army.txd");

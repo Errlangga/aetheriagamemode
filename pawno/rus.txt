@@ -1,0 +1,44 @@
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(7994) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(8410) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(8868) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(9405) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(21840) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(21996) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(21997) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(22062) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(22063) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(22358) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(30239) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(30235) : идентификатор не используется: "tmpobjid"
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(47125) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(53504) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(53544) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(56318) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(56355) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(56957) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(56962) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(61588) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(61601) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(62211) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(62220) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(62321) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(62396) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(78834) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(78849) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(78932) : предупреждение 202: количество аргументов не совпадает с объявлением
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(78938) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(78995) : предупреждение 202: количество аргументов не совпадает с объявлением
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(81171) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(81172) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(81181) : идентификатор не используется: "health"
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(85881) : предупреждение 213: несовпадение типов
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(86704) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(86712) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(93306) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(95309) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(95370) : неправильная табуляция
+D:\REALITY ASIA\remake\gamemodes\Atlantic.pwn(244) : идентификатор не используется: "_RenderBar"
+Pawn compiler 3.2.3664	 	 	Copyright (c) 1997-2017, ITB CompuPhase
+
+
+Предупреждений:3.
