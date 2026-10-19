@@ -1,4 +1,4 @@
-//=========SAMP INCLUDE SISTEM=============
+//bagusssss=========SAMP INCLUDE SISTEM=============
 #include <a_samp>
 // #include <sampvoice>
 #include <Dini>
