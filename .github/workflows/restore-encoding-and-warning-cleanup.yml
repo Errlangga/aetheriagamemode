@@ -1,0 +1,127 @@
+name: Preserve bytes and clean Pawn warnings
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/restore-encoding-and-warning-cleanup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout project with history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore original bytes and patch reported warnings
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $originalCommit = 'e28d5b52bbcaea4dd5d10168cf617dcb524174d6'
+          $sourcePath = Join-Path $env:GITHUB_WORKSPACE 'gamemodes/Atlantic.pwn'
+          $workflowPath = Join-Path $env:GITHUB_WORKSPACE '.github/workflows/restore-encoding-and-warning-cleanup.yml'
+
+          # Restore the exact original source blob before patching.
+          git checkout $originalCommit -- gamemodes/Atlantic.pwn
+          if ($LASTEXITCODE -ne 0) { throw 'Could not restore original Atlantic.pwn.' }
+
+          # Latin1 is a 1:1 byte mapping; preserve the source's original legacy encoding.
+          $encoding = [System.Text.Encoding]::Latin1
+          $originalBytes = [System.IO.File]::ReadAllBytes($sourcePath)
+          $raw = $encoding.GetString($originalBytes)
+          $roundTripBytes = $encoding.GetBytes($raw)
+          if ([Convert]::ToBase64String($roundTripBytes) -cne [Convert]::ToBase64String($originalBytes)) {
+            throw 'Original source bytes do not round-trip; refusing to edit.'
+          }
+
+          $lines = [System.Collections.Generic.List[string]]::new()
+          foreach ($line in [regex]::Split($raw, '\n')) { [void]$lines.Add($line) }
+
+          function Set-Indent([int]$number, [string]$indent, [string]$expected) {
+            if ($lines[$number - 1].Trim() -ne $expected) {
+              throw "Unexpected source at line $number. Expected: $expected"
+            }
+            $lines[$number - 1] = $indent + ($lines[$number - 1] -replace '^[ \t]+', '')
+          }
+
+          if ($lines.Count -lt 94000) { throw 'Atlantic.pwn is unexpectedly short; stopping without committing.' }
+
+          # Fix the first loose indentation in OnGameModeInit.
+          Set-Indent 31785 '    ' 'new tmpobjid;'
+
+          # Normalize the straight-line mapping/object block around the second loose indentation.
+          $tab = [string][char]9
+          for ($number = 31817; $number -le 31912; $number++) {
+            $text = $lines[$number - 1] -replace '^[ \t]+', ''
+            if ($text.Trim().Length -gt 0) { $lines[$number - 1] = $tab + $text }
+          }
+          if ($lines[31915].Trim() -notmatch '^GRPTERBARUANJAY2 = TextDrawCreate\(') {
+            throw 'Unexpected source at line 31916.'
+          }
+          $lines[31915] = '    ' + ($lines[31915] -replace '^[ \t]+', '')
+
+          # Fix inconsistent indentation in the building-removal block.
+          for ($number = 54852; $number -le 54879; $number++) {
+            $text = $lines[$number - 1] -replace '^[ \t]+', ''
+            if ($text.Trim().StartsWith('RemoveBuildingForPlayer(')) {
+              $lines[$number - 1] = '    ' + $text
+            }
+          }
+
+          # Fix the EMS/SAPD dialog indentation and retain the helper as an optional stock function.
+          Set-Indent 66276 '    ' 'if(dialogid == DIALOG_EMS_GARAGE)'
+          Set-Indent 66355 '    ' 'if(dialogid == DIALOG_SAPD_GARAGE)'
+          Set-Indent 84928 'stock ' 'IsMAYORCar(carid)'
+
+          # Remove only the five declarations confirmed unused by the compiler.
+          $removals = @(
+            @{ Number = 85270; Expected = 'new model = GetVehicleModel(vehicleid);' },
+            @{ Number = 85269; Expected = 'new vehicleid = GetPlayerVehicleID(playerid);' },
+            @{ Number = 37436; Expected = 'new e = 487;' },
+            @{ Number = 37435; Expected = 'new d = 596;' },
+            @{ Number = 170; Expected = 'new Text: Malavida_Logo[2];' }
+          )
+          foreach ($item in $removals) {
+            $number = [int]$item.Number
+            if ($lines[$number - 1].Trim() -ne $item.Expected) {
+              throw "Unexpected source at line $number; refusing to remove a different line."
+            }
+            $lines.RemoveAt($number - 1)
+          }
+
+          $updated = [string]::Join([string][char]10, $lines)
+          foreach ($needle in @('new d = 596;', 'new e = 487;', 'new Text: Malavida_Logo[2];')) {
+            if ($updated.Contains($needle)) { throw "Static validation failed: $needle remains." }
+          }
+          if (-not $updated.Contains('stock IsMAYORCar(carid)')) { throw 'IsMAYORCar validation failed.' }
+
+          [System.IO.File]::WriteAllBytes($sourcePath, $encoding.GetBytes($updated))
+          $written = $encoding.GetString([System.IO.File]::ReadAllBytes($sourcePath))
+          if ($written -cne $updated) { throw 'Written source failed byte-preserving verification.' }
+
+          # Ensure this remains a narrow warning cleanup rather than a whole-file encoding rewrite.
+          $stats = git diff --numstat --ignore-space-at-eol $originalCommit -- gamemodes/Atlantic.pwn
+          if ($LASTEXITCODE -ne 0) { throw 'Could not inspect Atlantic.pwn diff.' }
+          $counts = (($stats | Out-String).Trim() -split '\s+')
+          if ($counts.Count -lt 3) { throw "Unexpected diff statistics: $stats" }
+          $added = [int]$counts[0]
+          $deleted = [int]$counts[1]
+          if (($added + $deleted) -gt 400) { throw "Diff is unexpectedly large ($added added/$deleted deleted); refusing to commit." }
+
+          Remove-Item -LiteralPath $workflowPath -Force
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Preserve Atlantic source bytes and clean Pawn warnings [skip ci]'
+          git push origin HEAD:main
+          $commit = (git rev-parse HEAD).Trim()
+          "Commit: $commit" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          "Static validation passed. Diff statistics: $stats" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
