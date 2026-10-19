@@ -125,9 +125,9 @@
 
 #define 	SPRAY_TAG_TIMER 			(4) 					// Segundos para criar a grafite tag.
 #define 	SPRAY_TAG_OBJECT 			(19353) 				// ID do objeto.
-#define 	SPRAY_TAG_OBJECT_DISTANCE 	(200.0) 				// Distï¿½ncia em que pode ser visto a grafite tag
+#define 	SPRAY_TAG_OBJECT_DISTANCE 	(200.0) 				// Distância em que pode ser visto a grafite tag
 
-// ######### Tipo de diï¿½logo personalizado #########
+// ######### Tipo de diálogo personalizado #########
 #define 	TYPE_LIST_MENU 				(0)
 #define 	TYPE_LIST_EDIT 				(1)
 #define 	TYPE_LIST_CREATE 			(2)
@@ -136,7 +136,7 @@
 #define 	TYPE_LIST_TAGS_CREATE 		(5)
 #define 	TYPE_LIST_TAGS_FIND 		(6)
 
-// *********** ID de diï¿½logo #########
+// *********** ID de diálogo #########
 #define 	GRAFITE_MENU 				(9800)
 #define 	GRAFITE_DELETE 			(9801)
 #define 	GRAFITE_CREATE 			(9802)
@@ -35434,10 +35434,10 @@ public OnGameModeInit()
 	aIncass[0] = AddStaticVehicleEx_MODIFI(408, 1246.5037,-1816.2910,13.4152,165.0186,1,1,SPAWN_CARS);
 	aIncass[1] = AddStaticVehicleEx_MODIFI(408, 1246.5037-5,-1816.2910,13.4152,165.0186,1,1,SPAWN_CARS);
 
-    aMeria1[0] = AddStaticVehicleEx_MODIFI(400,1403.3497,-1802.8577,13.6146,90.3161,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½
-	AddStaticVehicleEx_MODIFI(400,1403.4808,-1807.2294,13.6117,89.9991,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½
-	AddStaticVehicleEx_MODIFI(400,1403.2822,-1798.7563,13.6411,90.8311,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½
-	aMeria1[1] = AddStaticVehicleEx_MODIFI(400,1403.1390,-1794.5258,13.6402,89.6049,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½
+    aMeria1[0] = AddStaticVehicleEx_MODIFI(400,1403.3497,-1802.8577,13.6146,90.3161,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½
+	AddStaticVehicleEx_MODIFI(400,1403.4808,-1807.2294,13.6117,89.9991,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½
+	AddStaticVehicleEx_MODIFI(400,1403.2822,-1798.7563,13.6411,90.8311,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½
+	aMeria1[1] = AddStaticVehicleEx_MODIFI(400,1403.1390,-1794.5258,13.6402,89.6049,1,1,SPAWN_CARS); // ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½
 
 	aLSPD[0] = AddStaticVehicleEx_MODIFI(415, 1564.540039, -1711.589965, 5.689799, 359.252014, 223,223,SPAWN_CARS);
 	AddStaticVehicleEx_MODIFI(415, 1528.349975, -1688.060058, 5.610000, 269.533996, 223,223,SPAWN_CARS);
@@ -70424,7 +70424,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			for(new logo = strlen(inputtext); logo != 0; --logo)
 			/*switch(inputtext[logo])
 			/
-			    case '?'..'?', '?'..'ï¿½?':
+			    case '?'..'?', '?'..'ï¿?':
 				return ShowPlayerDialog(playerid, 104, DIALOG_STYLE_INPUT, "{CC9900}Ubah nama perusahaan", ""W"Masukkan nama perusahaan Anda:\n\nAnda tidak dapat menggunakan karakter Rusia", "Pilih", "Kembali");
 			}*/
 			if(strlen(inputtext) > 31 || strlen(inputtext) < 3) return ShowPlayerDialog(playerid, 104, DIALOG_STYLE_INPUT, "{CC9900}Ubah nama perusahaan", ""W"Masukkan nama perusahaan Anda:\n\nTidak lebih dari 12 karakter atau kurang dari 3 digit", "Pilih", "Kembali");
@@ -76177,7 +76177,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			/*for(new tests = strlen(inputtext); tests != 0; --tests)
 			switch(inputtext[tests])
 			{
-			    case '?'..'?', '?'..'ï¿½?', ' ': return SPD(playerid,191, DIALOG_STYLE_INPUT, "Nama kontak baru", ""W"Masukkan nama baru untuk kontak ini.\nAnda tidak dapat menggunakan karakter Rusia, coba lagi.", "Terima", "Kembali");
+			    case '?'..'?', '?'..'ï¿?', ' ': return SPD(playerid,191, DIALOG_STYLE_INPUT, "Nama kontak baru", ""W"Masukkan nama baru untuk kontak ini.\nAnda tidak dapat menggunakan karakter Rusia, coba lagi.", "Terima", "Kembali");
 			}*/
 			if(!strlen(inputtext) || strlen(inputtext) < 3 || strlen(inputtext) > 32) return SPD(playerid,191, DIALOG_STYLE_INPUT, "Nama kontak baru", ""W"Masukkan nama baru untuk kontak ini.\nAnda tidak dapat menggunakan kurang dari 3 atau lebih dari 32 karakter.", "Terima", "Kembali");
 			if(!isNum(inputtext)) return SPD(playerid,191, DIALOG_STYLE_INPUT, "Nama kontak baru", ""W"Masukkan nama baru untuk kontak ini.\nNomor tidak dapat berisi angka, coba lagi.", "Terima", "Kembali");
@@ -76385,7 +76385,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    /*for(new t = strlen(inputtext); t != 0; --t)
 		    switch(inputtext[t])
 			{
-			    case '?'..'?', '?'..'ï¿½?', ' ':
+			    case '?'..'?', '?'..'ï¿?', ' ':
 				return SPD(playerid, 201, DIALOG_STYLE_INPUT, "Ubah kata sandi", ""W"Masukkan kata sandi baru\nKata sandi hanya dapat terdiri dari karakter latin", "Tunjukkan", "Kembali");
 			}*/
 			if(!strlen(inputtext) || strlen(inputtext) < 6 || strlen(inputtext) > 12)
